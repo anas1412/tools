@@ -1,0 +1,55 @@
+import sys
+from PyQt5 import QtWidgets, QtGui
+
+class MainWindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+    def initUI(self):
+        # Create the button for the WebM to MP4 conversion
+        self.webmToMp4Button = QtWidgets.QPushButton('WebM to MP4', self)
+        self.webmToMp4Button.clicked.connect(self.convertWebmToMp4)
+        self.webmToMp4Button.move(20, 20)
+
+        # Create the button for the MP4 to WebM conversion
+        self.mp4ToWebmButton = QtWidgets.QPushButton('MP4 to WebM', self)
+        self.mp4ToWebmButton.clicked.connect(self.convertMp4ToWebm)
+        self.mp4ToWebmButton.move(140, 20)
+
+        # Create the file selection widget
+        self.fileList = QtWidgets.QListWidget(self)
+        self.fileList.setGeometry(20, 60, 360, 280)
+
+        # Set the window properties
+        self.setGeometry(300, 300, 400, 400)
+        self.setWindowTitle('WebM/MP4 Converter')
+
+    def convertWebmToMp4(self):
+        # Get the selected items from the file list
+        selected_items = self.fileList.selectedItems()
+
+        # Convert each selected item to MP4
+        for item in selected_items:
+            input_file = item.text()
+            output_file = input_file[:-5] + 'converted.mp4'
+            command = ['ffmpeg', '-i', input_file, '-c:v', 'libx264', '-c:a', 'aac', output_file]
+            subprocess.run(command)
+
+    def convertMp4ToWebm(self):
+        # Get the selected items from the file list
+        selected_items = self.fileList.selectedItems()
+
+        # Convert each selected item to WebM
+        for item in selected_items:
+            input_file = item.text()
+            output_file = input_file[:-4] + '.webm'
+            command = ['ffmpeg', '-i', input_file, '-c:v', 'vp9', '-c:a', 'opus', output_file]
+            subprocess.run(command)
+
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
