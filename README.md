@@ -3,10 +3,9 @@
 some tools i made
 
 Make sure python is installed on your system and added to system envirnoment variables
+Download and extract "ffmpeg.exe" and add it to the tool folder you want to use
 
 ## MP4/Webm Usage:
-
-Download and extract "ffmpeg.exe" and add it to the webm-mp4-converter folder
 
 ```python mp4-to-webm.py <input_file> [<input_file> ...]```
 
