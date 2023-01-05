@@ -17,3 +17,9 @@ Download and extract "ffmpeg.exe" and add it to the webm-mp4-converter folder
 `pip install qtpy`
 
 `python todo_app.py`
+
+## Youtube Downloader Usage:
+
+`pip install youtube_dl`
+
+`python ytbd.py`
